@@ -27,14 +27,18 @@ jobs:
           node-version: 19
           cache: "pnpm"
 
-      - run: pnpm install --frozen-lockfile
-      - run: export BUILD_ENV=prod
-      - run: pnpm run build
-
       - name: Get some values needed for the release
         id: release_values
         run: |
           echo "release_tag=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: build userscript
+        env:
+          BUILD_ENV: true
+          RELEASE_TAG: ${{ env.release_tag }}
+        run: pnpm run build
 
       - name: Upload release
         run: |

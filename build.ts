@@ -2,6 +2,12 @@ import { build } from 'esbuild'
 import * as pkg from './package.json'
 
 const distName = `${pkg.name}.user.js`
+const buildEnv = (process.env.BUILD_ENV || 'dev') as 'dev' | 'prod'
+const isProd = buildEnv === 'prod'
+const watch = !!process.env.WATCH_FILES
+const releaseTag = process.env.RELEASE_TAG || 'dev'
+
+const VERSION = `${pkg.version}${releaseTag}`
 
 const userscriptBanner = `// ==UserScript==
 // @id          ${pkg.name}
@@ -9,7 +15,7 @@ const userscriptBanner = `// ==UserScript==
 // @namespace   Violentmonkey Scripts
 // @match       https://edocbox.nepatec.de/edocbox/editor/ui/*
 // @grant       none
-// @version     ${pkg.version}
+// @version     ${VERSION}
 // @author      ${pkg.author}
 // @description ${pkg.description}
 // @downloadURL ${pkg.repository.url}/releases/download/release/${distName}
@@ -17,10 +23,6 @@ const userscriptBanner = `// ==UserScript==
 // @homepageURL ${pkg.repository.url}
 // ==/UserScript==
 `
-// https://github.com/eliasblume/make-pdf-userscript/releases/download/release/pdfmake.user.js
-const buildEnv = (process.env.BUILD_ENV || 'dev') as 'dev' | 'prod'
-const isProd = buildEnv === 'prod'
-const watch = !!process.env.WATCH_FILES
 
 console.log('Build environment:', isProd)
 ;(async () => {
@@ -42,7 +44,7 @@ console.log('Build environment:', isProd)
         minifySyntax: isProd,
         logLevel: isProd ? 'error' : 'debug',
         define: {
-            'process.env.USERSCRIPT_VERSION': `"${pkg.version}"`,
+            'process.env.USERSCRIPT_VERSION': `"${VERSION}"`,
         },
     })
 })()
