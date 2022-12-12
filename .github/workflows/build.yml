@@ -36,7 +36,7 @@ jobs:
 
       - name: build userscript
         env:
-          BUILD_ENV: true
+          BUILD_ENV: prod
           RELEASE_TAG: ${{ env.release_tag }}
         run: pnpm run build
 
