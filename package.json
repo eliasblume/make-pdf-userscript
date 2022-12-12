@@ -1,7 +1,8 @@
 {
   "name": "make-pdf-userscript",
-  "version": "1.0.0",
-  "description": "add download pdf option to a online pdf viewer",
+  "version": "1.2.0",
+  "description": "add download pdf option to an online pdf viewer",
+  "main": "src/main.ts",
   "scripts": {
     "dev": "export WATCH_FILES=true && tsx build",
     "build": "tsx build.ts"
@@ -11,7 +12,7 @@
   "author": "Elias Blume",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eliasblume/make-pdf-userscriptd.git"
+    "url": "https://github.com/eliasblume/make-pdf-userscript"
   },
   "license": "MIT",
   "devDependencies": {

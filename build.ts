@@ -1,6 +1,8 @@
 import { build } from 'esbuild'
 import * as pkg from './package.json'
 
+const distName = `${pkg.name}.user.js`
+
 const userscriptBanner = `// ==UserScript==
 // @id          ${pkg.name}
 // @name        ${pkg.name}
@@ -10,22 +12,26 @@ const userscriptBanner = `// ==UserScript==
 // @version     ${pkg.version}
 // @author      ${pkg.author}
 // @description ${pkg.description}
+// @downloadURL ${pkg.repository.url}/releases/download/release/${distName}
+// @updateURL   ${pkg.repository.url}/releases/download/release/${distName}
+// @homepageURL ${pkg.repository.url}
 // ==/UserScript==
 `
-
+// https://github.com/eliasblume/make-pdf-userscript/releases/download/release/pdfmake.user.js
 const buildEnv = (process.env.BUILD_ENV || 'dev') as 'dev' | 'prod'
 const isProd = buildEnv === 'prod'
 const watch = !!process.env.WATCH_FILES
+
 console.log('Build environment:', isProd)
 ;(async () => {
     await build({
-        entryPoints: ['./src/main.ts'],
+        entryPoints: [pkg.main],
         banner: {
             js: userscriptBanner,
         },
         bundle: true,
         color: true,
-        outfile: './dist/pdfmake.user.js',
+        outfile: `./dist/${distName}`,
         format: 'iife',
         platform: 'browser',
         treeShaking: isProd,
