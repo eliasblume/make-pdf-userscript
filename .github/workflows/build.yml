@@ -31,6 +31,11 @@ jobs:
       - run: export BUILD_ENV=prod
       - run: pnpm run build
 
+      - name: Get some values needed for the release
+        id: release_values
+        run: |
+          echo "release_tag=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
 
       - name: Upload release
         run: |
