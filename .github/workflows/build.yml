@@ -35,8 +35,6 @@ jobs:
         id: release_values
         run: |
           echo "release_tag=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-      
-
 
       - name: Upload release
         run: |
