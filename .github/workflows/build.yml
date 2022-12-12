@@ -32,10 +32,10 @@ jobs:
       - run: pnpm run build
 
 
-      - name: Upload Devbuild
+      - name: Upload release
         run: |
-          gh release upload devbuild --clobber dist/*
-          gh release edit devbuild --title "DevBuild $RELEASE_TAG"
+          gh release upload release --clobber dist/*
+          gh release edit release --title "release $RELEASE_TAG"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_TAG: ${{ env.release_tag }}

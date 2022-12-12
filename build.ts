@@ -17,13 +17,7 @@ const buildEnv = (process.env.BUILD_ENV || 'dev') as 'dev' | 'prod'
 const isProd = buildEnv === 'prod'
 const watch = !!process.env.WATCH_FILES
 console.log('Build environment:', isProd)
-
-// const rxdbFix = `// Copyright (c) 2020-present, hyperboom.con, All rights reserved.
-// ;window.global = window
-// ;window.process = {env: { DEBUG: undefined },}
-// `
 ;(async () => {
-    // await rm('./dist', { recursive: true })
     await build({
         entryPoints: ['./src/main.ts'],
         banner: {
@@ -40,6 +34,9 @@ console.log('Build environment:', isProd)
         minifyWhitespace: isProd,
         minifyIdentifiers: isProd,
         minifySyntax: isProd,
-        logLevel: 'debug',
+        logLevel: isProd ? 'error' : 'debug',
+        define: {
+            'process.env.USERSCRIPT_VERSION': `"${pkg.version}"`,
+        },
     })
 })()

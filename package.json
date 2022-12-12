@@ -9,6 +9,10 @@
   "keywords": [],
   "packageManager": "pnpm@7.13.4",
   "author": "Elias Blume",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eliasblume/make-pdf-userscriptd.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^18.11.13",
