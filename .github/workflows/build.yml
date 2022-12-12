@@ -1,0 +1,41 @@
+name: build userscript
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/build.yml
+      - src/**
+      - package.json
+      - pnpm-lock.yaml
+
+env:
+  FORCE_COLOR: true
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2 # Install pnpm using packageManager key in package.json
+
+      - name: Use Node.js 19
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19
+          cache: "pnpm"
+
+      - run: pnpm install --frozen-lockfile
+      - run: export BUILD_ENV=prod
+      - run: pnpm run build
+
+
+      - name: Upload Devbuild
+        run: |
+          gh release upload devbuild --clobber dist/*
+          gh release edit devbuild --title "DevBuild $RELEASE_TAG"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: ${{ env.release_tag }}
