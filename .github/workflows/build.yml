@@ -31,16 +31,9 @@ jobs:
       - run: export BUILD_ENV=prod
       - run: pnpm run build
 
-      - name: Get some values needed for the release
-        id: release_values
-        run: |
-          echo "release_tag=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
-
       - name: Upload release
         run: |
           gh release upload release --clobber dist/*
-          gh release edit release --title "release $RELEASE_TAG"
+          gh release edit release --title "release $(release_tag=$(git rev-parse --short HEAD))"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ env.release_tag }}
