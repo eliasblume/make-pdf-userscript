@@ -2,7 +2,6 @@ lockfileVersion: 5.4
 
 specifiers:
   '@types/node': ^18.11.13
-  dotenv: ^16.0.3
   esbuild: ^0.16.4
   jspdf: ^2.5.1
   tsx: ^3.12.1
@@ -10,7 +9,6 @@ specifiers:
 
 devDependencies:
   '@types/node': 18.11.13
-  dotenv: 16.0.3
   esbuild: 0.16.4
   jspdf: 2.5.1
   tsx: 3.12.1
@@ -327,11 +325,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /dotenv/16.0.3:
-    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
-    engines: {node: '>=12'}
-    dev: true
 
   /esbuild-android-64/0.15.18:
     resolution: {integrity: sha512-wnpt3OXRhcjfIDSZu9bnzT4/TNTDsOUvip0foZOUBG7QbSt//w3QV4FInVJxNhKc/ErhUxc5z4QjHtMi7/TbgA==}
